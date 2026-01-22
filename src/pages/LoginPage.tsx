@@ -60,16 +60,20 @@ const LoginPage: React.FC = () => {
       return;
     }
     
+    const inputId = email.trim().toLowerCase();
+    const inputPassword = password.trim();
+
     // Demo credentials
-    const validCredentials = {
-      admin: { email: 'admin@dm.gov.in', password: 'admin123' },
-      user: { email: 'user@dm.gov.in', password: 'user123' }
+    const validCredentials: Record<'admin' | 'user', { identifiers: string[]; password: string }> = {
+      admin: { identifiers: ['admin@dm.gov.in', '9999999999'], password: 'admin123' },
+      user: { identifiers: ['user@dm.gov.in', '8888888888'], password: 'user123' },
     };
-    
+
     const expected = validCredentials[selectedRole];
-    
-    if (email === expected.email && password === expected.password) {
-      login(email, password, selectedRole);
+    const isValid = expected.identifiers.includes(inputId) && inputPassword === expected.password;
+
+    if (isValid) {
+      login(inputId, inputPassword, selectedRole);
       toast.success(t.loginSuccess);
       navigate('/dashboard');
     } else {
