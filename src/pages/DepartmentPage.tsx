@@ -172,7 +172,7 @@ const DepartmentPage: React.FC = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {cases.map((c) => {
-                const needsReminder = c.status === 'Pending' && c.hearingDate && isWithinDays(c.hearingDate, new Date(), 7);
+                const needsReminder = c.status === 'Pending' && c.hearingDate && isWithinDays(c.hearingDate, 7);
                 
                 return (
                   <tr key={c.id} className={needsReminder ? 'bg-red-50' : ''}>
