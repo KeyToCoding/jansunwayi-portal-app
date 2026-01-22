@@ -60,12 +60,19 @@ const LoginPage: React.FC = () => {
       return;
     }
     
-    try {
-      // In a real app, you would validate credentials against a backend
+    // Demo credentials
+    const validCredentials = {
+      admin: { email: 'admin@dm.gov.in', password: 'admin123' },
+      user: { email: 'user@dm.gov.in', password: 'user123' }
+    };
+    
+    const expected = validCredentials[selectedRole];
+    
+    if (email === expected.email && password === expected.password) {
       login(email, password, selectedRole);
       toast.success(t.loginSuccess);
       navigate('/dashboard');
-    } catch (error) {
+    } else {
       toast.error(t.loginError);
     }
   };
